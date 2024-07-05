@@ -1,9 +1,9 @@
 <?php
-if (isset($_GET['id'])) {
-    $id_filmu = $_GET['id'];
+if (isset($_GET['title'])) {
+    $nazwa_filmu = $_GET['title'];
 
     // Wywołanie skryptu Pythona
-    $command = escapeshellcmd("python3 fetchReviews.py $id_filmu");
+    $command = escapeshellcmd("python3 fetchReviews.py \"$nazwa_filmu\"");
     $output = shell_exec($command);
 
     // Zwrot danych JSON

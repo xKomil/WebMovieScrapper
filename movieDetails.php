@@ -156,5 +156,28 @@ $conn->close();
         <?php endif; ?>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nazwaFilmu = "<?php echo $film['Tytuł']; ?>";
+            fetch(`getReviews.php?title=${encodeURIComponent(nazwaFilmu)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const opinieDiv = document.getElementById('opinie');
+                    if (data.length > 0) {
+                        data.forEach(opinia => {
+                            const opiniaDiv = document.createElement('div');
+                            opiniaDiv.classList.add('opinia');
+                            opiniaDiv.innerHTML = `<p><strong>${opinia.author}</strong>: ${opinia.text}</p>`;
+                            opinieDiv.appendChild(opiniaDiv);
+                        });
+                    } else {
+                        opinieDiv.innerHTML = '<p>Brak opinii dla tego filmu.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Błąd podczas pobierania opinii:', error);
+                });
+        });
+    </script>
 </body>
 </html>
