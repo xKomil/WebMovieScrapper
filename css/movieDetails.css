@@ -1,3 +1,13 @@
+.header {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    background: var(--eerie-black);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
