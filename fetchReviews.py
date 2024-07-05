@@ -5,73 +5,71 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import time
+import sys
 
 # Initialize Chrome options
 chrome_options = Options()
 chrome_options.add_argument("--disable-notifications")
 
-# Nazwa filmu przekazana jako argument skryptu
-nazwa_filmu = "Interstellar"
-# URL do wyszukiwania filmu na Filmwebie
+# Film title passed as a script argument
+nazwa_filmu = sys.argv[1]
+# URL for searching the film on Filmweb
 search_url = f"https://www.filmweb.pl/search?q={nazwa_filmu}"
 
-# Inicjalizacja przeglądarki
+# Initialize the browser
 driver = webdriver.Chrome(options=chrome_options)
 driver.get(search_url)
 
 # Handle the cookie consent pop-up
-wait = WebDriverWait(driver, 20)
 try:
-    accept_cookies_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.didomi-components-button.didomi-button.didomi-dismiss-button.didomi-components-button--color.didomi-button-highlight.highlight-button')))
+    # Wait for the accept cookies button and click it
+    accept_cookies_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, '.didomi-components-button.didomi-button.didomi-dismiss-button.didomi-components-button--color.didomi-button-highlight.highlight-button'))
+    )
     accept_cookies_button.click()
     print("Cookies accepted.")
 except Exception as e:
     print(f"Cookie consent pop-up not found or already accepted. Error: {e}")
 
-# Poczekaj aż reklama się zakończy (np. 16 sekund)
+# Wait for any ads to finish (e.g., wait 16 seconds)
 time.sleep(16)
 
-# Poczekaj aż strona załaduje wyniki wyszukiwania
+# Wait for the search results page to load
 try:
-    first_result = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.filmPreview__title a')))
+    first_result = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, '.preview__link'))
+    )
     first_result.click()
     print("First search result clicked.")
 except Exception as e:
     print(f"First search result not found or not clickable. Error: {e}")
 
-# Poczekaj aż strona załaduje informacje o filmie
-try:
-    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.filmMainHeader__title')))
-    print("Film details page loaded.")
-except Exception as e:
-    print(f"Film details not found. Error: {e}")
-
-# Pobranie URL do strony z opiniami
+# Get the URL for the page with reviews
 film_url = driver.current_url
 reviews_url = film_url + "/reviews"
 driver.get(reviews_url)
 
-# Poczekaj aż strona załaduje opinie
-try:
-    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.page__container')))
-    print("Review page loaded.")
-except Exception as e:
-    print(f"Review page not found. Error: {e}")
+# Wait a bit for the reviews page to load
+time.sleep(5)
 
-# Pobieranie opinii
+# Collect reviews
 reviews = []
-review_elements = driver.find_elements(By.CSS_SELECTOR, 'div.page__container')
-for review in review_elements:
-    try:
-        author = review.find_element(By.CSS_SELECTOR, 'span.flatReview__name').text.strip()
-        text = review.find_element(By.CSS_SELECTOR, 'div.reviewText').text.strip()
-        reviews.append({'author': author, 'text': text})
-    except Exception as e:
-        print(f"Error processing review: {e}")
-        continue
+try:
+    review_elements = driver.find_elements(By.CSS_SELECTOR, '.flatReview')
+    for review in review_elements:
+        try:
+            author = review.find_element(By.CSS_SELECTOR, '.flatReview__author').text.strip()
+            title = review.find_element(By.CSS_SELECTOR, '.flatReview__title').text.strip().replace('"\"', "")
+            text = review.find_element(By.CSS_SELECTOR, '.flatReview__text').text.strip().replace('"\"', "")
+            reviews.append({'author': author, 'title': title, 'text': text})
+        except Exception as e:
+            print(f"Error processing review: {e}")
+            continue
+except Exception as e:
+    print(f"Error retrieving review elements: {e}")
 
-# Zamknięcie przeglądarki
+# Close the browser
 driver.quit()
 
-# Zwrot danych jako JSON
-print(json.dumps(reviews, ensure_ascii=False))
+# Return data as JSON
+print(json.dumps(reviews, ensure_ascii=False, indent=2))
