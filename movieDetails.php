@@ -95,16 +95,16 @@ $conn->close();
                 </div>
                 <ul class="navbar-list">
                     <li>
-                        <a href="#home" class="navbar-link">Strona domowa</a>
+                        <a href="index.php" class="navbar-link">Strona domowa</a>
                     </li>
                     <li>
-                        <a href="#movie" class="navbar-link">Filmy</a>
+                        <a href="index.php#movi" class="navbar-link">Filmy</a>
                     </li>
                     <li>
-                        <a href="#tv-series" class="navbar-link">Bilety</a>
+                        <a href="index.php#tv-series" class="navbar-link">Bilety</a>
                     </li>
                     <li>
-                        <a href="#contact" class="navbar-link">Kontakt</a>
+                        <a href="index.php#contact" class="navbar-link">Kontakt</a>
                     </li>
                     <li>
                         <a href="userprofile.php" class="navbar-link">Profil</a>
