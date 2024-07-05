@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -211,7 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send_message'])) {
     <div class="container">
         <?php
         // Pobieranie filmów z bazy danych
-        $sql = "SELECT Tytuł, Reżyser, Gatunek, Czas_trwania, Opis, Zdjecie, Zwiastun, Rok_powstania FROM Filmy";
+        $sql = "SELECT ID_filmu, Tytuł, Reżyser, Gatunek, Czas_trwania, Opis, Zdjecie, Zwiastun, Rok_powstania FROM Filmy";
         $result = mysqli_query($conn, $sql);
 
         $filmy = [];
@@ -219,6 +220,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send_message'])) {
             while ($row = mysqli_fetch_assoc($result)) {
                 $filmy[] = $row;
             }
+        } else {
+            echo "<p>Brak filmów do wyświetlenia.</p>";
         }
         ?>
 
@@ -234,36 +237,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send_message'])) {
             <li><button class="filter-btn" onclick="filterMovies('Dramat')">Dramat</button></li> 
             <li><button class="filter-btn" onclick="filterMovies('Science Fiction')">Science Fiction</button></li> 
         </ul>
-
+        
         <ul class="movies-list" id="movies-list">
-            <?php foreach ($filmy as $film): ?>
-                <li class="movie-item" data-genre="<?php echo htmlspecialchars($film['Gatunek']); ?>">
-                    <div class="movie-card">
-                        <a href="<?php echo htmlspecialchars($film['Zwiastun']); ?>" target="_blank">
-                            <figure class="card-banner">
-                                <img src="<?php echo htmlspecialchars($film['Zdjecie']); ?>" alt="<?php echo htmlspecialchars($film['Tytuł']); ?>">
-                            </figure>
-                        </a>
-                        <div class="title-wrapper">
-                            <!-- Dodanie linku do tytułu -->
-                            <a href="<?php echo htmlspecialchars($film['Zwiastun']); ?>" target="_blank">
-                                <h3 class="card-title"><?php echo htmlspecialchars($film['Tytuł']); ?></h3>
+            // Dodanie linku z parametrami przechodzącymi do informacji o filmie
+            <?php if (!empty($filmy)): ?>
+                <?php foreach ($filmy as $film): ?>
+                    <li class="movie-item" data-genre="<?php echo htmlspecialchars($film['Gatunek']); ?>">
+                        <div class="movie-card">
+                            <a href="movieDetails.php?id=<?php echo htmlspecialchars($film['ID_filmu']); ?>" target="_blank">
+                                <figure class="card-banner">
+                                    <img src="<?php echo htmlspecialchars($film['Zdjecie']); ?>" alt="<?php echo htmlspecialchars($film['Tytuł']); ?>">
+                                </figure>
                             </a>
-                            <span><?php echo htmlspecialchars($film['Rok_powstania']); ?></span>
-                        </div>
-                        <div class="card-meta">
-                            <div class="badge badge-outline">4K</div>
-                            <div class="duration">
-                                <ion-icon name="time-outline"></ion-icon>
-                                <time datetime="PT<?php echo htmlspecialchars($film['Czas_trwania']); ?>M"><?php echo htmlspecialchars($film['Czas_trwania']); ?> min</time>
+                            <div class="title-wrapper">
+                                <a href="movieDetails.php?id=<?php echo htmlspecialchars($film['ID_filmu']); ?>" target="_blank">
+                                    <h3 class="card-title"><?php echo htmlspecialchars($film['Tytuł']); ?></h3>
+                                </a>
+                                <span><?php echo htmlspecialchars($film['Rok_powstania']); ?></span>
+                            </div>
+                            <div class="card-meta">
+                                <div class="badge badge-outline">4K</div>
+                                <div class="duration">
+                                    <ion-icon name="time-outline"></ion-icon>
+                                    <time datetime="PT<?php echo htmlspecialchars($film['Czas_trwania']); ?>M"><?php echo htmlspecialchars($film['Czas_trwania']); ?> min</time>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            <?php endforeach; ?>
+                    </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </ul>
     </div>
 </section>
+
 
 <script>
     // Funkcja do filtrowania filmów

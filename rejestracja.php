@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $email = trim($_POST["email"]);
         // Sprawdzenie, czy email już istnieje w bazie
-        $sql = "SELECT id FROM Użytkownicy WHERE Email = ?";
+        $sql = "SELECT Email FROM Użytkownicy WHERE Email = ?";
         if ($stmt = mysqli_prepare($conn, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $param_email);
             $param_email = $email;
@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: logowanie.php");
             exit();
         } else {
-            $mysql_error_msg = "Błąd podczas rejestracji: Taki e-mail już istnieje :)";
+            $mysql_error_msg = "Błąd podczas rejestracji: " . mysqli_error($conn);
         }
     }
 }
@@ -155,4 +155,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </body>
-</html
+</html>

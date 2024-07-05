@@ -2,35 +2,54 @@
 // Połączenie z bazą danych
 require_once 'config/config.php';
 
-// Zapytanie SQL do pobrania danych o filmach
-$query = "SELECT * FROM Filmy WHERE ID_filmu = :id_filmu";
-$id_filmu = $_GET['id']; // Pobranie parametru 'id' z URL
+// Sprawdzenie czy parametr 'id' został przekazany w URL
+if (isset($_GET['id'])) {
+    // Pobranie ID filmu z parametru GET
+    $id_filmu = $_GET['id'];
 
-// Przygotowanie zapytania
-$stmt = $conn->prepare($query);
-$stmt->bindParam(':id_filmu', $id_filmu, PDO::PARAM_INT);
+    // Zapytanie SQL do pobrania danych o filmie
+    $query = "SELECT * FROM Filmy WHERE ID_filmu = ?";
 
-// Wykonanie zapytania
-if ($stmt->execute()) {
-    // Pobranie wyników zapytania
-    $film = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Przygotowanie zapytania
+    $stmt = $conn->prepare($query);
 
-    // Wyświetlenie danych o filmie
-    if ($film) {
-        echo "<h2>{$film['Tytuł']}</h2>";
-        echo "<p><strong>Reżyser:</strong> {$film['Reżyser']}</p>";
-        echo "<p><strong>Gatunek:</strong> {$film['Gatunek']}</p>";
-        echo "<p><strong>Czas trwania:</strong> {$film['Czas_trwania']} minut</p>";
-        echo "<p><strong>Opis:</strong> {$film['Opis']}</p>";
-        echo "<img src='{$film['Zdjecie']}' alt='{$film['Tytuł']}' class='film-image'>";
-        echo "<p><a href='{$film['Zwiastun']}' target='_blank'>Zobacz zwiastun</a></p>";
+    // Związanie parametru ID filmu z zapytaniem
+    $stmt->bind_param('i', $id_filmu);
+
+    // Wykonanie zapytania
+    if ($stmt->execute()) {
+        // Pobranie wyników zapytania
+        $result = $stmt->get_result();
+
+        // Sprawdzenie czy znaleziono film
+        if ($result->num_rows > 0) {
+            $film = $result->fetch_assoc();
+
+            // Wyświetlenie danych o filmie
+            echo "<h2>{$film['Tytuł']}</h2>";
+            echo "<p><strong>Reżyser:</strong> {$film['Reżyser']}</p>";
+            echo "<p><strong>Gatunek:</strong> {$film['Gatunek']}</p>";
+            echo "<p><strong>Czas trwania:</strong> {$film['Czas_trwania']} minut</p>";
+            echo "<p><strong>Opis:</strong> {$film['Opis']}</p>";
+            echo "<img src='{$film['Zdjecie']}' alt='{$film['Tytuł']}' class='film-image'>";
+            echo "<p><a href='{$film['Zwiastun']}' target='_blank'>Zobacz zwiastun</a></p>";
+        } else {
+            echo "<p>Brak danych dla filmu o ID: $id_filmu</p>";
+        }
     } else {
-        echo "<p>Brak danych dla filmu o ID: $id_filmu</p>";
+        echo "<p>Błąd podczas wykonania zapytania: " . $stmt->error . "</p>";
     }
+
+    // Zamknięcie zapytania
+    $stmt->close();
 } else {
-    echo "<p>Błąd podczas pobierania danych o filmie</p>";
+    echo "<p>Brak parametru 'id' w URL</p>";
 }
+
+// Zamknięcie połączenia
+$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -44,10 +63,6 @@ if ($stmt->execute()) {
 <body>
     <div class="container">
         <h1>Informacje o filmie</h1>
-        
-        <div class="film-info">
-            <?php include 'film_info.php'; ?>
-        </div>
     </div>
 </body>
 </html>

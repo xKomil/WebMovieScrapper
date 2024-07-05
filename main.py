@@ -31,7 +31,7 @@ for film in films:
         # Pobieramy tekst z elementu
         quantity_text = quantity_element.get_text(strip=True)
         # Usuwamy końcówkę "ocen"
-        quantity = quantity_text.replace("ocen", "").strip().replace(" ", "")
+        quantity = quantity_text.replace("ocen", "").replace("y", "").strip().replace(" ", "")
     else:
         quantity = "Brak liczby ocen"
 
