@@ -1,38 +1,66 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 800px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
 }
 
-h1, h2 {
-    color: #333;
-}
-
-.film-info {
+h1 {
+    text-align: center;
     margin-top: 20px;
 }
 
-.film-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
+.movie-details {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-a {
-    color: #007bff;
-    text-decoration: none;
+.movie-info {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-a:hover {
-    text-decoration: underline;
+.movie-info .film-image {
+    max-width: 200px;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+.movie-table {
+    flex: 1;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.movie-table th,
+.movie-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.movie-reviews {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.movie-reviews h3 {
+    margin-top: 0;
+}
+
+.opinia {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
 }
