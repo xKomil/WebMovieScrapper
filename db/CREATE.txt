@@ -1,0 +1,67 @@
+CREATE TABLE IF NOT EXISTS `Bilety` (
+    ID_biletu INT AUTO_INCREMENT PRIMARY KEY,
+    Nazwa_biletu VARCHAR(255) NOT NULL,
+    Cena DECIMAL(10, 2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+CREATE TABLE IF NOT EXISTS `Filmy` (
+    ID_filmu INT AUTO_INCREMENT PRIMARY KEY,
+    Tytuł VARCHAR(255) NOT NULL,
+    Reżyser VARCHAR(255) NOT NULL,
+    Gatunek VARCHAR(255) NOT NULL,
+    Czas_trwania INT NOT NULL,
+    Opis TEXT NOT NULL,
+    Zdjecie VARCHAR(255) NOT NULL,
+    Zwiastun VARCHAR(255) NOT NULL,
+    Rok_powstania YEAR NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+CREATE TABLE IF NOT EXISTS `Sale` (
+    ID_sali INT AUTO_INCREMENT PRIMARY KEY,
+    Numer_sali INT NOT NULL,
+    Liczba_miejsc INT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+CREATE TABLE IF NOT EXISTS `Użytkownicy` (
+    ID_użytkownika INT AUTO_INCREMENT PRIMARY KEY,
+    Imię VARCHAR(255) NOT NULL,
+    Nazwisko VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL UNIQUE,
+    Hasło VARCHAR(255) NOT NULL,
+    Rola ENUM('user', 'admin') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+CREATE TABLE IF NOT EXISTS `Wiadomosci` (
+    ID_wiadomosci INT AUTO_INCREMENT PRIMARY KEY,
+    Uzytkownik VARCHAR(255) NOT NULL,
+    Temat VARCHAR(255) NOT NULL,
+    Wiadomosc TEXT NOT NULL,
+    Data_wyslania TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+CREATE TABLE IF NOT EXISTS `Seanse` (
+    ID_seansu INT AUTO_INCREMENT PRIMARY KEY,
+    ID_filmu INT NOT NULL,
+    ID_sali INT NOT NULL,
+    Data DATE NOT NULL,
+    Godzina TIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+CREATE TABLE IF NOT EXISTS `Rezerwacje` (
+    ID_rezerwacji INT AUTO_INCREMENT PRIMARY KEY,
+    ID_biletu INT NOT NULL,
+    ID_użytkownika INT NOT NULL,
+    Miejsce VARCHAR(10) NOT NULL,
+    ID_filmu INT NOT NULL,
+    ID_seansu INT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+ALTER TABLE `Rezerwacje`
+    ADD CONSTRAINT `fk_rezerwacje_bilety` FOREIGN KEY (ID_biletu) REFERENCES `Bilety`(ID_biletu),
+    ADD CONSTRAINT `fk_rezerwacje_uzytkownicy` FOREIGN KEY (ID_użytkownika) REFERENCES `Użytkownicy`(ID_użytkownika),
+    ADD CONSTRAINT `fk_rezerwacje_filmy` FOREIGN KEY (ID_filmu) REFERENCES `Filmy`(ID_filmu),
+    ADD CONSTRAINT `fk_rezerwacje_seanse` FOREIGN KEY (ID_seansu) REFERENCES `Seanse`(ID_seansu);
+
+ALTER TABLE `Seanse`
+    ADD CONSTRAINT `fk_seanse_filmy` FOREIGN KEY (ID_filmu) REFERENCES `Filmy`(ID_filmu),
+    ADD CONSTRAINT `fk_seanse_sale` FOREIGN KEY (ID_sali) REFERENCES `Sale`(ID_sali);

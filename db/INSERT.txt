@@ -1,0 +1,48 @@
+
+INSERT INTO `Bilety` (ID_biletu, Nazwa_biletu, Cena)
+VALUES
+(1, 'Normalny', 20.00),
+(2, 'Ulgowy', 14.00),
+(3, 'Specjalny', 150.00);
+
+INSERT INTO `Filmy` (ID_filmu, Tytuł, Reżyser, Gatunek, Czas_trwania, Opis, Zdjecie, Zwiastun, Rok_powstania)
+VALUES
+(1, 'Interstellar', 'Christopher Nolan', 'Dokumentalne', 169, 'Podróż kosmiczna w poszukiwaniu nowego domu dla ludzkości.', 'https://m.media-amazon.com/images/I/91JnoM0khKL._AC_UF1000,1000_QL80_.jpg', 'https://www.youtube.com/watch?v=zSWdZVtXT7E', 2014),
+(2, 'Pulp Fiction', 'Quentin Tarantino', 'Komedie', 154, 'Zestawienie losowo ułożonych historii związanych z przestępczością i przemocą.', 'https://m.media-amazon.com/images/S/pv-target-images/dbb9aff6fc5fcd726e2c19c07f165d40aa7716d1dee8974aae8a0dad9128d392.jpg', 'https://www.youtube.com/watch?v=tGpTpVyI_OQ', 1994),
+(3, 'Avengers: Endgame', 'Anthony Russo, Joe Russo', 'Akcji', 182, 'Po porażce ze strony Thanosa, Avengers zbierają się ponownie, aby przywrócić porządek we wszechświecie.', 'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg', 'https://www.youtube.com/watch?v=TcMBFSGVi1c', 2019),
+(4, 'Inception', 'Christopher Nolan', 'Science Fiction', 148, 'Zespół specjalistów wkracza w świadomość ludzi, aby manipulować ich snami.', 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg', 'https://www.youtube.com/watch?v=5EiV_HXIIGs', 2010),
+(5, 'The Dark Knight', 'Christopher Nolan', 'Akcji', 152, 'Batman staje do walki ze złoczyńcą znanym jako Joker, który szerzy chaos w Gotham City.', 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg', 'https://www.youtube.com/watch?v=_PZpmTj1Q8Q', 2008),
+(6, 'Fight Club', 'David Fincher', 'Dramat', 139, 'Historia człowieka cierpiącego na bezsenność, który zakłada klub walki jako sposób na ucieczkę od rutyny życia.', 'https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg', 'https://www.youtube.com/watch?v=O1nDozs-LxI', 1999),
+(7, 'Forrest Gump', 'Robert Zemeckis', 'Dramat', 142, 'Historia życia Forresta Gumpa, który uczestniczy w wielu znaczących wydarzeniach historycznych w Stanach Zjednoczonych.', 'https://m.media-amazon.com/images/S/pv-target-images/2d0c9e38968936e6711c7fb2bc7895b82d8bb9178b5a854e14dffa4b17b88487.jpg', 'https://www.youtube.com/watch?v=bLvqoHBptjg', 1994),
+(8, 'Matrix', 'Lana Wachowski, Lilly Wachowski', 'Akcji', 136, 'Programista komputerowy Neo dowiaduje się od tajemniczych rebeliantów, że rzeczywistość, którą zna, jest iluzją stworzona przez maszynę.', 'https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg', 'https://www.youtube.com/watch?v=vKQi3bBA1y8', 1999),
+(9, 'Zakonnica', 'Corin Hardy', 'Horrory', 96, 'Film opowiada historię młodej zakonnicy i zakonnika na wiejskim podwórku w Rumunii, który ma stać się areną przerażającej walki między żywymi a umarłymi. Ich zadaniem jest zbadać tajemniczy samobójczy przypadek zakonnicy.', 'https://media.multikino.pl/thumbnails/50/rc/NkIwMjY5/eyJ0aHVtYm5haWwiOnsic2l6ZSI6WyIxMDAwMCIsIjEwMDAwIl0sIm1vZGUiOiJpbnNldCJ9fQ==/uploads/images/films_and_events/zakonnica-pl2_9d73a2ad9f.jpg', 'https://www.youtube.com/watch?v=IfNIK883Fho', 2018),
+(10, 'Chłopi', 'DK Welchman, Hugh Welchman', 'Dramat', 116, 'Na tle zmieniających się pór roku i sezonowych prac polowych rozgrywają się losy rodziny Borynów i pięknej, tajemniczej Jagny.', 'https://fwcdn.pl/fpo/79/62/857962/8095499_1.3.jpg', 'https://www.youtube.com/watch?v=rILKSimhfA4', 2023);
+
+INSERT INTO `Sale` (ID_sali, Numer_sali, Liczba_miejsc)
+VALUES
+(1, 1, 100),
+(2, 2, 80),
+(3, 3, 120),
+(4, 4, 90),
+(5, 5, 110),
+(6, 6, 70),
+(7, 7, 100),
+(8, 8, 85);
+
+INSERT INTO `Wiadomosci` (ID_wiadomosci, Uzytkownik, Temat, Wiadomosc, Data_wyslania)
+VALUES
+(1, 1, 'Błąd podczas procesu płatności', 'Witam, mam problem z dokonaniem płatności na Waszej stronie. Podczas próby zapłaty za zakupy, po wprowadzeniu danych karty kredytowej, pojawia się komunikat o błędzie i proces płatności nie zostaje ukończony. Próbowałam używać różnych kart, ale problem się powtarza. Chciałabym wiedzieć, czy jest to problem po stronie mojej karty, czy może Waszego systemu płatności. Czy możecie mi pomóc rozwiązać ten problem? Chcę jak najszybciej sfinalizować swoje zakupy. Z góry dziękuję za pomoc. Pozdrawiam, Anna Kowalska.', '2024-06-14 15:15:08'),
+(2, 2, 'Problem z logowaniem', 'Cześć, mam problem z zalogowaniem się do mojego konta na Waszej stronie. Używam poprawnego loginu i hasła, ale za każdym razem, gdy próbuję się zalogować, pojawia się komunikat o błędnych danych. Próbowałem już resetować hasło, ale nawet po jego zmianie sytuacja się nie poprawiła. Czy moglibyście sprawdzić, co może być przyczyną tego problemu? Moje konto jest dla mnie bardzo ważne, ponieważ mam na nim dostęp do wielu istotnych informacji i narzędzi. Z góry dziękuję za pomoc. Pozdrawiam, Jan Nowak.', '2024-06-14 15:15:24'),
+(3, 3, 'Brak potwierdzenia', 'Dzień dobry, kilka dni temu złożyłem zamówienie na Waszej stronie, ale do tej pory nie otrzymałem żadnego potwierdzenia na maila. Numer zamówienia to 12345. Chciałbym wiedzieć, czy moje zamówienie zostało poprawnie zarejestrowane i kiedy mogę spodziewać się jego realizacji. Sprawdzałem foldery spam i inne, ale żadnego maila od Was nie znalazłem. Proszę o pilne wyjaśnienie tej sytuacji, ponieważ zależy mi na szybkim otrzymaniu zamówionych produktów. Dziękuję za pomoc. Pozdrawiam, Piotr Zieliński.', '2024-06-14 15:15:37'),
+(4, 4, 'Problem', 'Witam, od kilku dni mam problemy z działaniem Waszej aplikacji mobilnej. Aplikacja często się zawiesza i wyłącza, co uniemożliwia mi normalne korzystanie z jej funkcji. Próbowałam ją reinstalować oraz aktualizować system na moim telefonie, ale problemy nadal występują. Czy możecie sprawdzić, czy są jakieś znane problemy z tą wersją aplikacji? Bardzo proszę o pomoc w rozwiązaniu tego problemu, ponieważ często korzystam z Waszej aplikacji w codziennej pracy. Dziękuję za pomoc. Pozdrawiam, Maria Wiśniewska.', '2024-06-14 15:15:47');
+
+INSERT INTO `Seanse` (ID_seansu, ID_filmu, ID_sali, Data, Godzina)
+VALUES
+(1, 1, 1, '2024-06-03', '18:00:00'),
+(2, 2, 2, '2024-06-03', '20:00:00'),
+(3, 3, 3, '2024-06-04', '17:30:00'),
+(4, 4, 4, '2024-06-04', '19:00:00'),
+(5, 5, 5, '2024-06-05', '18:30:00'),
+(6, 6, 6, '2024-06-05', '20:00:00'),
+(7, 7, 7, '2024-06-06', '17:45:00'),
+(8, 8, 8, '2024-06-06', '19:30:00');
