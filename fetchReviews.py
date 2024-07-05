@@ -22,7 +22,7 @@ driver.get(search_url)
 # Handle the cookie consent pop-up
 wait = WebDriverWait(driver, 20)
 try:
-    accept_cookies_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'didomi-components-button didomi-button didomi-dismiss-button didomi-components-button--color didomi-button-highlight highlight-button')))
+    accept_cookies_button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.didomi-components-button.didomi-button.didomi-dismiss-button.didomi-components-button--color.didomi-button-highlight.highlight-button')))
     accept_cookies_button.click()
     print("Cookies accepted.")
 except Exception as e:

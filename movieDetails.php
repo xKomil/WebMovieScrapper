@@ -98,7 +98,7 @@ $conn->close();
                         <a href="index.php" class="navbar-link">Strona domowa</a>
                     </li>
                     <li>
-                        <a href="index.php#movi" class="navbar-link">Filmy</a>
+                        <a href="index.php#movie" class="navbar-link">Filmy</a>
                     </li>
                     <li>
                         <a href="index.php#tv-series" class="navbar-link">Bilety</a>
