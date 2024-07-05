@@ -1,7 +1,18 @@
 <?php
+
 // Połączenie z bazą danych
 require_once 'config/config.php';
 
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: logowanie.php");
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['logout']) && $_POST['logout'] == true) {
+    session_destroy();
+    header("Location: logowanie.php");
+    exit();
+}
 // Sprawdzenie czy parametr 'id' został przekazany w URL
 if (isset($_GET['id'])) {
     // Pobranie ID filmu z parametru GET
@@ -153,6 +164,7 @@ $conn->close();
                 <h3>Opinie z Filmwebu</h3>
                 <div id="opinie"></div>
             </div>
+
         <?php endif; ?>
     </div>
 

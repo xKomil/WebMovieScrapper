@@ -58,9 +58,9 @@ try:
     review_elements = driver.find_elements(By.CSS_SELECTOR, '.flatReview')
     for review in review_elements:
         try:
-            author = review.find_element(By.CSS_SELECTOR, '.flatReview__author').text.strip()
-            title = review.find_element(By.CSS_SELECTOR, '.flatReview__title').text.strip().replace('"\"', "")
-            text = review.find_element(By.CSS_SELECTOR, '.flatReview__text').text.strip().replace('"\"', "")
+            author = review.find_element(By.CSS_SELECTOR, '.flatReview__name').text.strip()
+            title = review.find_element(By.CSS_SELECTOR, '.flatReview__title').text.strip()
+            text = review.find_element(By.CSS_SELECTOR, '.flatReview__text').text.strip()
             reviews.append({'author': author, 'title': title, 'text': text})
         except Exception as e:
             print(f"Error processing review: {e}")
@@ -72,4 +72,4 @@ except Exception as e:
 driver.quit()
 
 # Return data as JSON
-print(json.dumps(reviews, ensure_ascii=False, indent=2))
+print(json.dumps(reviews, ensure_ascii=False))
