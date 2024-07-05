@@ -238,8 +238,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['send_message'])) {
             <li><button class="filter-btn" onclick="filterMovies('Science Fiction')">Science Fiction</button></li> 
         </ul>
         
+        // Dodanie linku z parametrami przechodzącymi do informacji o filmie
         <ul class="movies-list" id="movies-list">
-            // Dodanie linku z parametrami przechodzącymi do informacji o filmie
             <?php if (!empty($filmy)): ?>
                 <?php foreach ($filmy as $film): ?>
                     <li class="movie-item" data-genre="<?php echo htmlspecialchars($film['Gatunek']); ?>">
